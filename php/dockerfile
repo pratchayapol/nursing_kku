@@ -5,7 +5,7 @@ LABEL Author="PRATCHAYAPOL <pratchayapol.ja@rmuti.ac.th>" version="latest" org.o
 COPY . .
 
 RUN docker-php-ext-install pdo pdo_mysql
-
+ 
 # Install required dependencies for GD extension
 RUN apt-get update && apt-get install -y \
     libjpeg-dev \
