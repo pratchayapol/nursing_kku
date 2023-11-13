@@ -39,3 +39,13 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "kku"
       MYSQL_DATABASE: nursing_kku
+
+  nodejs_app:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile  # ให้แน่ใจว่า Dockerfile อยู่ใน root directory
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/usr/src/app/src  # ปรับเปลี่ยนตามโครงสร้างโฟลเดอร์ของโปรเจกต์
+      - /usr/src/app/node_modules  # ไม่ต้องมี node_modules ใน volume, จะถูกสร้างใน image
