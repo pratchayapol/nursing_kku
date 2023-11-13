@@ -37,8 +37,11 @@ services:
     image: mariadb:10.8     #ใช้ images ของ mariadb version 10.8
     container_name: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: "kku"
+      MYSQL_ROOT_PASSWORD: adminkku
       MYSQL_DATABASE: nursing_kku
+      MYSQL_USER: kku
+      MYSQL_PASSWORD: kku
+
 
   nodejs_app:
     build:
