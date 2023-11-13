@@ -55,16 +55,18 @@ input[type=password]{
     border-radius: 5px;
     background-color: #278ACA;
     color: aliceblue;
-    width: 24.5%;
+    width: 30.5%;
     height: 4.5vh;
+    text-decoration: none;
 }
 .forgotpassword {
     border: solid 0.5px rgb(255, 255, 255);
     border-radius: 5px;
     background-color: #A73B24;
     color: aliceblue;
-    width: 24.5%;
-    height: 4.5vh;
+    width: 26.5%;
+    height: 6.5vh;
+    text-decoration: none;
 }
 .login:hover {
     background-color: #000000;
