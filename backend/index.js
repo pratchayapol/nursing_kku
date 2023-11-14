@@ -12,11 +12,11 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
+  host: 'mysql',
+  user: 'kku',
+  password: 'kku',
   database: 'nu_service',
-  port: 8889
+  port: 3306
 });
 
 ////////////// Account 
