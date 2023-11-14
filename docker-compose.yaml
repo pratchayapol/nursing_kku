@@ -26,16 +26,16 @@ services:
     image: phpmyadmin/phpmyadmin #ใช้ images ของ phpmyadmin
     container_name: phpmyadmin
     environment:
-      PMA_HOST: mariadb
+      PMA_HOST: mysql
     depends_on:
-      - mariadb
+      - mysql
     ports:
       - "8081:80"
 
-  mariadb:
+  mysql:
     restart: unless-stopped
-    image: mariadb:10.8     #ใช้ images ของ mariadb version 10.8
-    container_name: mariadb
+    image: mysql:latest
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: adminkku
       MYSQL_DATABASE: nursing_kku
