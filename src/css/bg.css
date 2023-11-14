@@ -7,3 +7,8 @@
     background-color: #278ACA; /* Set background color */
 }
 
+.wider-btn {
+    width: 100px; /* ปรับความกว้างตามที่ต้องการ */
+    /* หรือคุณสามารถใช้ค่าอื่น ๆ เช่น padding เพิ่มเติมได้ */
+    /* padding: 10px 20px; */
+}
