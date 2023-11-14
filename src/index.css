@@ -26,6 +26,10 @@ img {
     width: 20%;
     display: flex;
 }
+.label{
+    text-align: center;
+    margin-left: 20px;
+}
 .title{
     background-color: #46aaf1;
     width: 50%;
