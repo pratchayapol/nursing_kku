@@ -70,22 +70,21 @@ button {
 button:hover {
     background-color: #45a049;
 }
-.haveaccount {
+
+.a {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
-    background-color: #4caf50;
+    background-color: #A73B24;
     color: #fff;
-    border: none;
+    border: 2px solid red;
     border-radius: 4px;
     cursor: pointer;
     font-family: 'kku', sans-serif;
     text-decoration: none;
-}
-.haveaccount {
-    background-color: #2196F3;
+    box-sizing: border-box; /* Include padding and border in the width */
 }
 
-.haveaccount:hover {
-    background-color: #0b7dda;
+.a:hover {
+    background-color: #a65543;
 }
