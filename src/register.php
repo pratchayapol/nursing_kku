@@ -19,7 +19,6 @@
     <!-- Custom styles for this template-->
     <link href="./css/sb-admin-2.min.css" rel="stylesheet">
     <?php include './tabloading/load_h.php' ?>
-
 </head>
 
 <body class="bg">
