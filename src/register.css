@@ -33,6 +33,7 @@ body {
 h2 {
     text-align: center;
     color: #333;
+    font-size: 60px;
 }
 
 .email, .gender label {
@@ -87,4 +88,18 @@ button:hover {
 
 .a:hover {
     background-color: #a65543;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    /* Adjust styles for larger screens (e.g., tablets and desktops) */
+    .register {
+        width: 50%;
+    }
+}
+@media (max-width: 768px) {
+    /* Adjust styles for larger screens (e.g., tablets and desktops) */
+    h2 {
+        font-size: 150%;
+    }
 }
