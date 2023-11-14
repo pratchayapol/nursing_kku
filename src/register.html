@@ -46,39 +46,6 @@
                                             <h1 class="h4 text-gray-900 mb-4 t1"><strong>สมัครสมาชิก</strong></h1>
                                         </div>
                                         <form class="user" action="signup_db.php" method="post">
-                                            <?php if (isset($_SESSION['error'])) { ?>
-                                            <center>
-                                                <div class="alert alert-danger t1" role="alert">
-
-                                                    <?php
-                                                        echo $_SESSION['error'];
-                                                        unset($_SESSION['error']);
-                                                        ?>
-                                                </div>
-                                            </center>
-                                            <?php } ?>
-                                            <?php if (isset($_SESSION['success'])) { ?>
-                                            <center>
-                                                <div class="alert alert-success t1" role="alert">
-                                                    <?php
-                                                        echo $_SESSION['success'];
-                                                        unset($_SESSION['success']);
-                                                        ?>
-                                                </div>
-                                            </center>
-                                            <?php } ?>
-                                            <?php if (isset($_SESSION['warning'])) { ?>
-                                            <center>
-                                                <div class="alert alert-warning t1" role="alert">
-                                                    <?php
-                                                        echo $_SESSION['warning'];
-                                                        unset($_SESSION['warning']);
-                                                        ?>
-                                                </div>
-                                            </center>
-
-                                            <?php } ?>
-
                                             <div class="form-group row">
                                                 <div class="col-sm-4 mb-3 mb-sm-0">
                                                     <select name="num_name" class="form-control t1" type="text"
@@ -145,7 +112,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    <?php include './tabloading/load_f.php' ?>
 </body>
 
 </html>
