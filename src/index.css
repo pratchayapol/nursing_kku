@@ -11,7 +11,12 @@ body{
     transform: translate(-50%, -50%);
     border-radius: 15px;
     background-image: url(./image/386472600_1529217951227421_2738680003221826635_n.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
     background-size: 100%;
+
     display:flex;
 }
 .logo{
@@ -32,7 +37,7 @@ img {
     border-radius: 15px;
     text-align: center; 
     background-clip: text;
-    color: rgb(68, 68, 68);
+    color: aliceblue;
 }
 input[type=email]{
     border: solid 2px rgb(255, 255, 255);
@@ -49,6 +54,7 @@ input[type=password]{
     color: aliceblue;
     width: 24.5%;
     height: 4.5vh;
+    margin-bottom: 45%;
 }
 .register {
     border: solid 0.1px rgb(255, 255, 255);
@@ -79,4 +85,17 @@ input[type=password]{
 .forgotpassword:hover{
     background-color: #000000;
     color: white;
+}
+.label1{
+    margin-left: 135px;
+    width: 15%;
+    margin-bottom: 7.5%;
+}
+h4{
+    margin-bottom: 15%;
+}
+.label2{
+    margin-left: 135px;
+    width: 15%;
+
 }
