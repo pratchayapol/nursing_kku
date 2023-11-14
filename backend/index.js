@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const cors = require('cors');
 const app = express();
 const port = 3000;
@@ -12,11 +12,11 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-  host: 'mysql',
-  user: 'kku',
-  password: 'kku',
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
   database: 'nu_service',
-  port: 3306
+  port: 8889
 });
 
 ////////////// Account 
