@@ -7,7 +7,9 @@ COPY ./backend/package.json ./backend/package-lock.json /app/
 COPY ./backend/ /app/
  
 RUN npm install
- 
+
 COPY . .
  
 CMD [ "node", "index.js" ]
+
+EXPOSE 3000
