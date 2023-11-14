@@ -38,10 +38,9 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: adminkku
-      MYSQL_DATABASE: nursing_kku
+      MYSQL_DATABASE: nu_service
       MYSQL_USER: kku
       MYSQL_PASSWORD: kku
-
 
   nodejs_app:
     build:
