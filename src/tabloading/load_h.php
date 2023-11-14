@@ -1,10 +1,7 @@
 <div id="loading-bar">
 <div id="progress-bar"></div>
 </div>
-<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&display=swap" rel="stylesheet">
+
 <style>
   #loading-bar {
     position: fixed;
@@ -24,5 +21,5 @@
     /* สีที่ต้องการเปลี่ยน */
     transition: width 0.3s ease-out;
   }
-  .t1 {font-family: 'Noto Sans Thai', sans-serif;}
+  
 </style>
