@@ -38,7 +38,9 @@ h2 {
 .email, .gender label {
     margin-top: 10px;
 }
-
+input {
+    font-size: 16px;
+}
 input[type="email"],
 input[type="password"],
 input[type="text"],
@@ -52,7 +54,7 @@ select {
     font-family: 'kku', sans-serif;
 }
 
-button, .haveaccount {
+button {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -68,7 +70,18 @@ button, .haveaccount {
 button:hover {
     background-color: #45a049;
 }
-
+.haveaccount {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'kku', sans-serif;
+    text-decoration: none;
+}
 .haveaccount {
     background-color: #2196F3;
 }
