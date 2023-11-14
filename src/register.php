@@ -36,7 +36,7 @@
                                 <div class="col-lg-12">
                                     <div class="p-5">
                                         <div class="text-center">
-                                            <h1 class="h4 text-gray-900 mb-4 t1">สมัครสมาชิก</h1>
+                                            <h1 class="h4 text-gray-900 mb-4 t1"><strong>สมัครสมาชิก</strong></h1>
                                         </div>
                                         <form class="user" action="signup_db.php" method="post">
                                             <?php if (isset($_SESSION['error'])) { ?>
@@ -102,7 +102,7 @@
                                                     <input type="password" class="form-control t1" name="c_password" aria-describedby="c_password" placeholder="ยืนยันรหัสผ่าน">
                                                 </div>
                                             </div>
-                                            <button type="submit" name="signup" class="btn btn-primary btn-user btn-block t1">สมัครใช้งาน</button>
+                                            <button type="submit" name="signup" class="btn btn-primary btn-block t1">สมัครใช้งาน</button>
                                         </form>
                                         <hr>
                                         <div class="form-group">
@@ -131,4 +131,5 @@
     <script src="js/sb-admin-2.min.js"></script>
     <?php include './tabloading/load_f.php' ?>
 </body>
+
 </html>
