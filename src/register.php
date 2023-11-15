@@ -53,6 +53,7 @@ if (isset($_POST['submit'])) {
 <?php
         } else {
             if ($password === $c_password) {
+                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
                 $postData = array(
                     'nameTitle' => $name_title,
                     'firstName' => $first_name,
@@ -60,7 +61,7 @@ if (isset($_POST['submit'])) {
                     'Email' => $email,
                     'phoneNumber' => $phone,
                     'Urole' => 'disable',
-                    'passWord' => $password
+                    'passWord' => $passwordHash
                 );
                 $ch = curl_init($apiEndpoint2);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -133,12 +134,6 @@ if (isset($_POST['submit'])) {
 
 
 
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -205,14 +200,14 @@ if (isset($_POST['submit'])) {
                                                 <input type="email" class="form-control t1" name="email" aria-describedby="email" placeholder="อีเมล" required>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control t1" name="phone" aria-describedby="Tel" maxlength="10" placeholder="เบอร์โทรศัพท์" required>
+                                                <input type="text" class="form-control t1" name="phone" aria-describedby="Tel" maxlength="10" placeholder="เบอร์โทรศัพท์" required minlength="8">
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                                    <input type="password" class="form-control t1" name="password" aria-describedby="password" placeholder="รหัสผ่าน 5 - 20 ตัว" required>
+                                                    <input type="password" class="form-control t1" name="password" aria-describedby="password" placeholder="รหัสผ่านไม่น้อยกว่า 5 ตัว" required minlength="5">
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <input type="password" class="form-control t1" name="c_password" aria-describedby="c_password" placeholder="ยืนยันรหัสผ่าน" required>
+                                                    <input type="password" class="form-control t1" name="c_password" aria-describedby="c_password" placeholder="ยืนยันรหัสผ่าน" required minlength="5">
                                                 </div>
                                             </div>
                                             <button type="submit" name="submit" class="btn btn-primary btn-block t1">สมัครใช้งาน</button>
