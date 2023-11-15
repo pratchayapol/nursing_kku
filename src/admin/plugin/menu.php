@@ -16,8 +16,9 @@
      <!-- Nav Item - Dashboard -->
      <li class="nav-item">
          <a class="nav-link t1" href="dashboard.php">
-             <i class="fas fa-fw fa-home"></i>
-             <span>หน้าแรก</span></a>
+             <i class="material-icons">home</i>
+             <span>หน้าแรก</span>
+         </a>
      </li>
 
      <!-- Divider -->
@@ -31,33 +32,25 @@
      <!-- Nav Item - Pages Collapse Menu -->
      <li class="nav-item t1">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3" aria-expanded="true" aria-controls="collapseUtilities">
-             <i class="fas fa-flag"></i>
-             <span>จัดการเข้าเวร</span>
+         <i class="material-icons">business</i>
+             <span>งานอาคารสถานที่</span>
          </a>
          <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
 
                  <a class="collapse-item" href="assign.php">
                      <i class="fas fa-calendar-alt"></i>
-                     <span>จัดการนัดหมายเข้าเวร</span>
-                 </a>
-                 <a class="collapse-item" href="timeterm.php">
-                     <i class="fas fa-fw fa-clock"></i>
-                     <span> จัดการภาคเรียน</span>
+                     <span>ขอจ้างซ่อม</span>
+                     <span class="badge bg-danger badge-counter"><?php echo "0" ?></span>
                  </a>
                  <a class="collapse-item" href="cs.php">
                      <i class="fas fa-sync"></i>
-                     <span> แจ้งเปลี่ยนเวร</span>
-                     <span class="badge bg-danger badge-counter"><?php echo $num ?></span>
+                     <span> ขอจัดซื้อวัสดุ</span>
+                     <span class="badge bg-danger badge-counter"><?php echo "0" ?></span>
                  </a>
-                 <a class="collapse-item" href="delayed.php">
-                     <i class="fas fa-fast-backward"></i>
-                     <span> แจ้งเข้าเวรย้อนหลัง</span>
-                 </a>
-
                  <a class="collapse-item" href="sig_user.php">
                      <i class="fas fa-fw far fa-edit"></i>
-                     <span>ลงนามเข้าเวรย้อนหลัง</span>
+                     <span>รายการทั้งหมด</span>
                  </a>
 
              </div>
@@ -67,8 +60,8 @@
 
      <li class="nav-item t1">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1" aria-expanded="true" aria-controls="collapseUtilities1">
-             <i class="fas fa-search"></i>
-             <span>ค้นหาข้อมูลการเข้าเวร</span>
+         <i class="material-icons">directions_bus</i>
+             <span>งานยานพาหนะ</span>
          </a>
          <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
