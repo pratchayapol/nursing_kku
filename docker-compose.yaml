@@ -28,63 +28,63 @@ services:
       nursing_network:
         ipv4_address: 192.168.10.3
 
-  phpmyadmin:
-    restart: unless-stopped
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    environment:
-      PMA_HOST: mysql
-    depends_on:
-      - mysql
-    ports:
-      - "8081:80"
-    networks:
-      nursing_network:
-        ipv4_address: 192.168.10.4
+#  phpmyadmin:
+#    restart: unless-stopped
+#    image: phpmyadmin/phpmyadmin
+#    container_name: phpmyadmin
+#    environment:
+#      PMA_HOST: mysql
+#    depends_on:
+#      - mysql
+#    ports:
+#      - "8081:80"
+#    networks:
+#      nursing_network:
+#        ipv4_address: 192.168.10.4
 
-  mysql:
-    restart: unless-stopped
-    image: mysql:latest
-    container_name: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: adminkku
-      MYSQL_DATABASE: nu_service
-      MYSQL_USER: kku
-      MYSQL_PASSWORD: kku
-    networks:
-      nursing_network:
-        ipv4_address: 192.168.10.5
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    command: --default-authentication-plugin=caching_sha2_password
+#  mysql:
+#    restart: unless-stopped
+#    image: mysql:latest
+#    container_name: mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: adminkku
+#      MYSQL_DATABASE: nu_service
+#      MYSQL_USER: kku
+#      MYSQL_PASSWORD: kku
+#    networks:
+#      nursing_network:
+#        ipv4_address: 192.168.10.5
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#    command: --default-authentication-plugin=caching_sha2_password
 
-  api-service-nu:
-    restart: always
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mysql
-    environment:
-      DB_HOST: mysql
-      DB_USER: kku
-      DB_PASSWORD: kku
-      DB_DATABASE: nu_service
-    networks:
-      nursing_network:
-        ipv4_address: 192.168.10.6
+#  api-service-nu:
+#    restart: always
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - mysql
+#    environment:
+#      DB_HOST: mysql
+#      DB_USER: kku
+#      DB_PASSWORD: kku
+#      DB_DATABASE: nu_service
+#    networks:
+#      nursing_network:
+#        ipv4_address: 192.168.10.6
 
-  cloudflared:
-    restart: unless-stopped
-    image: cloudflare/cloudflared:latest
-    command: tunnel --no-autoupdate run --token eyJhIjoiOWE1YThkZTAxODQxYjUwZjJiYWIwZGQ1YTQzZjU4NzEiLCJ0IjoiYTA3YmNmYzYtNjk1Ni00YzFjLWJhYjQtYmZhNmRlNmRlM2ExIiwicyI6Ik1qZGpPRFJqWkdVdFpEZzNNQzAwTlRNMExUa3laRE10TUdJd1pHSXpPV1F5T0dFeCJ9
-    networks:
-      nursing_network:
-        ipv4_address: 192.168.10.7
+#  cloudflared:
+#    restart: unless-stopped
+#    image: cloudflare/cloudflared:latest
+#    command: tunnel --no-autoupdate run --token eyJhIjoiOWE1YThkZTAxODQxYjUwZjJiYWIwZGQ1YTQzZjU4NzEiLCJ0IjoiYTA3YmNmYzYtNjk1Ni00YzFjLWJhYjQtYmZhNmRlNmRlM2ExIiwicyI6Ik1qZGpPRFJqWkdVdFpEZzNNQzAwTlRNMExUa3laRE10TUdJd1pHSXpPV1F5T0dFeCJ9
+#    networks:
+#      nursing_network:
+#        ipv4_address: 192.168.10.7
 
 networks:
   nursing_network:
