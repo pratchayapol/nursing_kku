@@ -16,7 +16,6 @@ const db = mysql.createConnection({
   user: 'kkc',
   password: 'kkc',
   database: 'nu_service',
-  port: 3306
 });
 
 ////////////// Account 
