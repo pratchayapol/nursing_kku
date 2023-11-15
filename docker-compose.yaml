@@ -53,8 +53,6 @@ services:
     networks:
       nursing_network:
         ipv4_address: 192.168.1.5
-    ports:
-      - "3306:3306"
 
   nodejs_app:
     build:
@@ -62,9 +60,13 @@ services:
       dockerfile: ./backend/Dockerfile  # ให้แน่ใจว่า Dockerfile อยู่ใน root directory
     ports:
       - "3000:3000"
-    volumes:
-      - ./src:/usr/src/app/src  # ปรับเปลี่ยนตามโครงสร้างโฟลเดอร์ของโปรเจกต์
-      - /usr/src/app/node_modules  # ไม่ต้องมี node_modules ใน volume, จะถูกสร้างใน image
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: kku
+      DB_PASSWORD: kku
+      DB_DATABASE: nu_service
     networks:
       nursing_network:
         ipv4_address: 192.168.1.6
