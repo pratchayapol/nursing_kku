@@ -32,8 +32,9 @@ if (isset($_POST['submit'])) {
         if ($emailExists) {
             /////////////////    มีอยู่แล้ว
             print_r('อีเมลนี้มีอยู่แล้ว') ;
-        } else {        
-            $postData = array(
+        } else {       
+            if($password === $c_password ) {
+              $postData = array(
                 'nameTitle' => $name_title,
                 'firstName' => $first_name,
                 'lastName' => $last_name,
@@ -64,7 +65,12 @@ if (isset($_POST['submit'])) {
             }
 
 // ปิดเซสชัน cURL
-curl_close($ch);
+curl_close($ch);  
+            }
+            else {
+                print_r('ไม่ตรงกัน');
+            }
+            
         }
         
     }
