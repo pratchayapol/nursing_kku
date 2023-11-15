@@ -9,5 +9,5 @@ CREATE TABLE `account` (
     urole varchar(10),
     profile_img varchar(50),
     otp INT,
-    pass_word varchar(15)
+    pass_word varchar(255)
 );
