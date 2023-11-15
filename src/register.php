@@ -1,4 +1,5 @@
-<?php 
+<?php
+require './popup/popup.php';
 if (isset($_POST['submit'])) {
     $name_title = $_POST['num_name'];
     $first_name = $_POST['firstname'];
@@ -7,72 +8,124 @@ if (isset($_POST['submit'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $c_password = $_POST['c_password'];
-    
+
     $apiEndpoint = 'https://nusv-api.pcnone.com/account-all';  //ดูข้อมูล Account ทั้งหมด
-    $apiEndpoint2 = 'https://nusv-api.pcnone.com/account-add';//เพิ่ม Account
+    $apiEndpoint2 = 'https://nusv-api.pcnone.com/account-add'; //เพิ่ม Account
 
     // เรียก API
     $response = file_get_contents($apiEndpoint);
 
     // Check API
     if ($response === FALSE) {
-    echo 'Error fetching data from API';
+        echo 'Error fetching data from API';
     } else {
         // Process the API response
         $data = json_decode($response, true);
         error_reporting(0);
-        foreach ($data as $account){
+        foreach ($data as $account) {
             if ($account['email'] === $email) {
                 $emailExists = true;
-                
+
                 break;
             }
         }
-    
+
         if ($emailExists) {
             /////////////////    มีอยู่แล้ว
-            print_r('อีเมลนี้มีอยู่แล้ว') ;
-        } else {       
-            if($password === $c_password ) {
-              $postData = array(
-                'nameTitle' => $name_title,
-                'firstName' => $first_name,
-                'lastName' => $last_name,
-                'Email' => $email,
-                'phoneNumber' => $phone,
-                'Urole' => 'disable',
-                'passWord' => $password
-            );
-            $ch = curl_init($apiEndpoint2);  
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+?>
+            <script>
+                setTimeout(function() {
+                    Swal.fire({
+                        title: 'ไม่สามารถสมัครใช้งานได้!',
+                        text: 'อีเมลซ้ำในระบบ',
+                        icon: 'error',
+                        confirmButtonText: 'ออก',
+                        allowOutsideClick: false, // ไม่อนุญาตให้คลิกนอก popup ปิด
+                        allowEscapeKey: false, // ไม่อนุญาตให้กดปุ่ม ESC เพื่อปิด
+                        allowEnterKey: false // ไม่อนุญาตให้กดปุ่ม Enter เพื่อปิด
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.history.back(-1);
+                        }
+                    });
+                });
+            </script>
+<?php
+        } else {
+            if ($password === $c_password) {
+                $postData = array(
+                    'nameTitle' => $name_title,
+                    'firstName' => $first_name,
+                    'lastName' => $last_name,
+                    'Email' => $email,
+                    'phoneNumber' => $phone,
+                    'Urole' => 'disable',
+                    'passWord' => $password
+                );
+                $ch = curl_init($apiEndpoint2);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
 
-            // ประมวลผล cURL และรับการตอบกลับ
-            $response = curl_exec($ch);
-            // ตรวจสอบข้อผิดพลาด cURL
-            if (curl_errno($ch)) {
-                echo 'เกิดข้อผิดพลาดในการเรียกใช้ API: ' . curl_error($ch);
-            } else {
-                // ประมวลผลการตอบกลับจาก API
-                $responseData = json_decode($response, true);
-                // เพิ่มตรรกะเพิ่มเติมตามความเหมาะสม
-                if (isset($responseData['message']) && $responseData['message'] === 'New account successfully added') {
-                    ////////////////////   เพิ่มเรียบร้อย + parth login.html
+                // ประมวลผล cURL และรับการตอบกลับ
+                $response = curl_exec($ch);
+                // ตรวจสอบข้อผิดพลาด cURL
+                if (curl_errno($ch)) {
+                    echo 'เกิดข้อผิดพลาดในการเรียกใช้ API: ' . curl_error($ch);
                 } else {
-                echo 'เกิดข้อผิดพลาด: ' . $responseData['message'];
+                    // ประมวลผลการตอบกลับจาก API
+                    $responseData = json_decode($response, true);
+                    // เพิ่มตรรกะเพิ่มเติมตามความเหมาะสม
+                    if (isset($responseData['message']) && $responseData['message'] === 'New account successfully added') {
+                        ////////////////////   เพิ่มเรียบร้อย + parth login.html
+                        ?>
+                        <script>
+                setTimeout(function() {
+                    Swal.fire({
+                        title: 'สมัครใช้งานสำเร็จ!',
+                        text: 'กลับสู่หน้า Login',
+                        icon: 'success',
+                        confirmButtonText: 'ตกลง',
+                        allowOutsideClick: false, // ไม่อนุญาตให้คลิกนอก popup ปิด
+                        allowEscapeKey: false, // ไม่อนุญาตให้กดปุ่ม ESC เพื่อปิด
+                        allowEnterKey: false // ไม่อนุญาตให้กดปุ่ม Enter เพื่อปิด
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "index.php";
+                        }
+                    });
+                });
+            </script>
+            <?php
+                    } else {
+                        echo 'เกิดข้อผิดพลาด: ' . $responseData['message'];
+                    }
                 }
-            }
 
-// ปิดเซสชัน cURL
-curl_close($ch);  
+                // ปิดเซสชัน cURL
+                curl_close($ch);
+            } else {
+                ?>
+                        <script>
+                setTimeout(function() {
+                    Swal.fire({
+                        title: 'รหัสผ่านไม่ตรงกัน!',
+                        text: 'ตั้งรหัสผ่านใหม่อีกครั้ง',
+                        icon: 'warning',
+                        confirmButtonText: 'ตกลง',
+                        allowOutsideClick: false, // ไม่อนุญาตให้คลิกนอก popup ปิด
+                        allowEscapeKey: false, // ไม่อนุญาตให้กดปุ่ม ESC เพื่อปิด
+                        allowEnterKey: false // ไม่อนุญาตให้กดปุ่ม Enter เพื่อปิด
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.history.back(-1);
+                        }
+                    });
+                });
+            </script>
+            <?php
             }
-            else {
-                print_r('ไม่ตรงกัน');
-            }
-            
         }
-        
     }
 }
 ?>
@@ -100,9 +153,7 @@ curl_close($ch);
     <!-- Custom fonts for this template-->
 
     <link href="./css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="./css/fonts.css">
     <link rel="stylesheet" href="./css/bg.css">
     <!-- animation -->
@@ -132,12 +183,11 @@ curl_close($ch);
                                     <div class="p-5">
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4 t1"><strong>สมัครสมาชิก</strong></h1>
-                                        </div>             
+                                        </div>
                                         <form class="user" action="" method="post">
                                             <div class="form-group row">
                                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                                    <select name="num_name" class="form-control t1" type="text"
-                                                        id="period" required>
+                                                    <select name="num_name" class="form-control t1" type="text" id="period" required>
                                                         <option value="">เลือกคำนำหน้า</option>
                                                         <option value="นาย">นาย</option>
                                                         <option value="นาง">นาง</option>
@@ -145,40 +195,32 @@ curl_close($ch);
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                                    <input type="text" class="form-control t1" name="firstname"
-                                                        aria-describedby="firstname" placeholder="ชื่อ" required>
+                                                    <input type="text" class="form-control t1" name="firstname" aria-describedby="firstname" placeholder="ชื่อ" required>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control t1" name="lastname"
-                                                        aria-describedby="lastname" placeholder="นามสกุล" required>
+                                                    <input type="text" class="form-control t1" name="lastname" aria-describedby="lastname" placeholder="นามสกุล" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="email" class="form-control t1" name="email"
-                                                    aria-describedby="email" placeholder="อีเมล" required>
+                                                <input type="email" class="form-control t1" name="email" aria-describedby="email" placeholder="อีเมล" required>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control t1" name="phone"
-                                                    aria-describedby="Tel" maxlength="10" placeholder="เบอร์โทรศัพท์" required>
+                                                <input type="text" class="form-control t1" name="phone" aria-describedby="Tel" maxlength="10" placeholder="เบอร์โทรศัพท์" required>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                                    <input type="password" class="form-control t1" name="password"
-                                                        aria-describedby="password" placeholder="รหัสผ่าน 5 - 20 ตัว" required>
+                                                    <input type="password" class="form-control t1" name="password" aria-describedby="password" placeholder="รหัสผ่าน 5 - 20 ตัว" required>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <input type="password" class="form-control t1" name="c_password"
-                                                        aria-describedby="c_password" placeholder="ยืนยันรหัสผ่าน" required>
+                                                    <input type="password" class="form-control t1" name="c_password" aria-describedby="c_password" placeholder="ยืนยันรหัสผ่าน" required>
                                                 </div>
                                             </div>
-                                            <button type="submit" name="submit"
-                                                class="btn btn-primary btn-block t1">สมัครใช้งาน</button>
+                                            <button type="submit" name="submit" class="btn btn-primary btn-block t1">สมัครใช้งาน</button>
                                         </form>
                                         <hr>
                                         <div class="form-group">
                                             <center>
-                                                <a class="btn btn-outline-warning t1"
-                                                    href="index.php">มีบัญชีผู้ใช้อยู่แล้ว</a>
+                                                <a class="btn btn-outline-warning t1" href="index.php">มีบัญชีผู้ใช้อยู่แล้ว</a>
                                         </div>
                                         </center>
                                     </div>
@@ -203,4 +245,3 @@ curl_close($ch);
 </body>
 
 </html>
-
