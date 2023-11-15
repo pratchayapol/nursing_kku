@@ -1,3 +1,85 @@
+<?php 
+if (isset($_POST['submit'])) {
+    $name_title = $_POST['num_name'];
+    $first_name = $_POST['firstname'];
+    $last_name = $_POST['lastname'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $password = $_POST['password'];
+    $c_password = $_POST['c_password'];
+    
+    $apiEndpoint = 'https://nusv-api.pcnone.com/account-all';  //ดูข้อมูล Account ทั้งหมด
+    $apiEndpoint2 = 'https://nusv-api.pcnone.com/account-add';//เพิ่ม Account
+
+    // เรียก API
+    $response = file_get_contents($apiEndpoint);
+
+    // Check API
+    if ($response === FALSE) {
+    echo 'Error fetching data from API';
+    } else {
+        // Process the API response
+        $data = json_decode($response, true);
+        error_reporting(0);
+        foreach ($data as $account){
+            if ($account['email'] === $email) {
+                $emailExists = true;
+                
+                break;
+            }
+        }
+    
+        if ($emailExists) {
+            /////////////////    มีอยู่แล้ว
+            print_r('อีเมลนี้มีอยู่แล้ว') ;
+        } else {        
+            $postData = array(
+                'nameTitle' => $name_title,
+                'firstName' => $first_name,
+                'lastName' => $last_name,
+                'Email' => $email,
+                'phoneNumber' => $phone,
+                'Urole' => 'disable',
+                'passWord' => $password
+            );
+            $ch = curl_init($apiEndpoint2);  
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+
+            // ประมวลผล cURL และรับการตอบกลับ
+            $response = curl_exec($ch);
+            // ตรวจสอบข้อผิดพลาด cURL
+            if (curl_errno($ch)) {
+                echo 'เกิดข้อผิดพลาดในการเรียกใช้ API: ' . curl_error($ch);
+            } else {
+                // ประมวลผลการตอบกลับจาก API
+                $responseData = json_decode($response, true);
+                // เพิ่มตรรกะเพิ่มเติมตามความเหมาะสม
+                if (isset($responseData['message']) && $responseData['message'] === 'New account successfully added') {
+                    ////////////////////   เพิ่มเรียบร้อย + parth login.html
+                } else {
+                echo 'เกิดข้อผิดพลาด: ' . $responseData['message'];
+                }
+            }
+
+// ปิดเซสชัน cURL
+curl_close($ch);
+        }
+        
+    }
+}
+?>
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,12 +126,12 @@
                                     <div class="p-5">
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4 t1"><strong>สมัครสมาชิก</strong></h1>
-                                        </div>
-                                        <form class="user" action="signup_db.php" method="post">
+                                        </div>             
+                                        <form class="user" action="" method="post">
                                             <div class="form-group row">
                                                 <div class="col-sm-4 mb-3 mb-sm-0">
                                                     <select name="num_name" class="form-control t1" type="text"
-                                                        id="period">
+                                                        id="period" required>
                                                         <option value="">เลือกคำนำหน้า</option>
                                                         <option value="นาย">นาย</option>
                                                         <option value="นาง">นาง</option>
@@ -58,32 +140,32 @@
                                                 </div>
                                                 <div class="col-sm-4 mb-3 mb-sm-0">
                                                     <input type="text" class="form-control t1" name="firstname"
-                                                        aria-describedby="firstname" placeholder="ชื่อ">
+                                                        aria-describedby="firstname" placeholder="ชื่อ" required>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control t1" name="lastname"
-                                                        aria-describedby="lastname" placeholder="นามสกุล">
+                                                        aria-describedby="lastname" placeholder="นามสกุล" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <input type="email" class="form-control t1" name="email"
-                                                    aria-describedby="email" placeholder="อีเมล">
+                                                    aria-describedby="email" placeholder="อีเมล" required>
                                             </div>
                                             <div class="form-group">
-                                                <input type="Tel" class="form-control t1" name="Tel"
-                                                    aria-describedby="Tel" maxlength="10" placeholder="เบอร์โทรศัพท์">
+                                                <input type="text" class="form-control t1" name="phone"
+                                                    aria-describedby="Tel" maxlength="10" placeholder="เบอร์โทรศัพท์" required>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                                     <input type="password" class="form-control t1" name="password"
-                                                        aria-describedby="password" placeholder="รหัสผ่าน 5 - 20 ตัว">
+                                                        aria-describedby="password" placeholder="รหัสผ่าน 5 - 20 ตัว" required>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <input type="password" class="form-control t1" name="c_password"
-                                                        aria-describedby="c_password" placeholder="ยืนยันรหัสผ่าน">
+                                                        aria-describedby="c_password" placeholder="ยืนยันรหัสผ่าน" required>
                                                 </div>
                                             </div>
-                                            <button type="submit" name="signup"
+                                            <button type="submit" name="submit"
                                                 class="btn btn-primary btn-block t1">สมัครใช้งาน</button>
                                         </form>
                                         <hr>
@@ -115,3 +197,4 @@
 </body>
 
 </html>
+
