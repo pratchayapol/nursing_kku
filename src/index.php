@@ -77,7 +77,7 @@
                                         <center>
                                             <div class="d-grid gap-2 d-md-block ">
                                                 <a class="btn btn-primary t1 wider-btn"
-                                                    href="register.html">สมัครใช้งาน</a>
+                                                    href="register.php">สมัครใช้งาน</a>
                                                 <a class="btn btn-danger t1 wider-btn" href="../src/forgotpassword/forgotpassword.html">ลืมรหัสผ่าน</a>
                                             </div>
                                         </center>
